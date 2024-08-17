@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מחשבון גימטריה</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: purple;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        input, button {
+            margin: 10px;
+            padding: 5px;
+            font-size: 16px;
+        }
+        #result {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>מחשבון גימטריה</h1>
+        <input type="text" id="nameInput" placeholder="הכנס שם בעברית">
+        <button onclick="calculateGematria()">חשב</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateGematria() {
+            const name = document.getElementById('nameInput').value;
+            const gematriaMap = {
+                'א': 1, 'י': 1, 'ק': 1,
+                'ב': 2, 'כ': 2, 'ך': 2, 'ר': 2,
+                'ג': 3, 'ל': 3, 'ש': 3,
+                'ד': 4, 'מ': 4, 'ם': 4, 'ת': 4,
+                'ה': 5, 'נ': 5, 'ן': 5,
+                'ו': 6, 'ס': 6,
+                'ז': 7, 'ע': 7,
+                'ח': 8, 'פ': 8, 'ף': 8,
+                'ט': 9, 'צ': 9, 'ץ': 9
+            };
+
+            let total = 0;
+            for (let char of name) {
+                if (char in gematriaMap) {
+                    total += gematriaMap[char];
+                }
+            }
+
+            let reduced = total;
+            while (reduced > 9) {
+                reduced = reduced.toString().split('').reduce((a, b) => parseInt(a) + parseInt(b), 0);
+            }
+
+            document.getElementById('result').innerHTML = 
+                `הערך הגימטרי של ${name} הוא: ${total}<br>
+                 המספר המצומצם הוא: ${reduced}`;
+        }
+    </script>
+</body>
+</html>
